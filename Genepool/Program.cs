@@ -1,12 +1,12 @@
 ﻿using Genepool.src.OOP.Abstraction;
 using Genepool.src.OOP.Encapsulation;
-using Genepool.src.OOP.Inheritance;
 
 class Program
 {
     static void Main(String[] args)
     {
-        Inheritance();
+        NoPolymorphism();
+        Polymorphism();
     }
 
     private static void NoEncapsulation()
@@ -27,7 +27,7 @@ class Program
 
     private static void NoAbstraction()
     {
-        BadEmailService badEmailService= new BadEmailService();
+        BadEmailService badEmailService = new BadEmailService();
         badEmailService.Connect();
         badEmailService.Authenticate();
         badEmailService.SendEmail();
@@ -36,14 +36,14 @@ class Program
 
     private static void Abstraction()
     {
-        EmailService emailService= new EmailService();
+        EmailService emailService = new EmailService();
         emailService.SendEmail();
     }
 
     private static void Inheritance()
     {
         // Creating an instance of Car, which inherits from Vehicle
-        Car car = new Car
+        Genepool.src.OOP.Inheritance.Good.Car car = new Genepool.src.OOP.Inheritance.Good.Car
         {
             Brand = "Toyota",
             Model = "Corolla",
@@ -62,7 +62,7 @@ class Program
         Console.WriteLine();
 
         // Creating an instance of Bike, which inherits from Vehicle
-        Bike bike = new Bike
+        Genepool.src.OOP.Inheritance.Good.Bike bike = new Genepool.src.OOP.Inheritance.Good.Bike
         {
             Brand = "Yamaha",
             Model = "MT-09",
@@ -75,5 +75,59 @@ class Program
         bike.Start();  // Inherited from Vehicle
         Console.WriteLine($"Number of Wheels: {bike.NumberOfWheels}");
         bike.Stop();   // Inherited from Vehicle
+    }
+
+    private static void NoPolymorphism()
+{
+    // Create a list of objects without polymorphism
+    List<Object> vehicles = new List<Object>
+    {
+        new Genepool.src.OOP.Polymorphism.Bad.Car { Brand = "Toyota", Model = "Camry", Year = 2020, NumberOfDoors = 4 },
+        new Genepool.src.OOP.Polymorphism.Bad.Bike { Brand = "Harley-Davidson", Model = "Sportster", Year = 2021 }
+    };
+
+    // Perform a general inspection on each vehicle with type checks
+    foreach (var vehicle in vehicles)
+    {
+        if (vehicle is Genepool.src.OOP.Polymorphism.Bad.Car)
+        {
+            Genepool.src.OOP.Polymorphism.Bad.Car car = (Genepool.src.OOP.Polymorphism.Bad.Car)vehicle; // Cast to Car
+            Console.WriteLine($"Inspecting {car.Brand} {car.Model} ({car.GetType().Name})");
+            car.Start();
+            car.Stop();
+            Console.WriteLine();
+        }
+        else if (vehicle is Genepool.src.OOP.Polymorphism.Bad.Bike)
+        {
+            Genepool.src.OOP.Polymorphism.Bad.Bike bike = (Genepool.src.OOP.Polymorphism.Bad.Bike)vehicle; // Cast to Bike
+            Console.WriteLine($"Inspecting {bike.Brand} {bike.Model} ({bike.GetType().Name})");
+            bike.Start();
+            bike.Stop();
+            Console.WriteLine();
+        }
+        else
+        {
+            throw new Exception("Object is not a valid vehicle");
+        }
+    }
+}
+
+
+    private static void Polymorphism()
+    {
+        // Create a list of vehicles
+        List<Genepool.src.OOP.Polymorphism.Good.Vehicle> vehicles = new List<Genepool.src.OOP.Polymorphism.Good.Vehicle>{
+            new Genepool.src.OOP.Polymorphism.Good.Car { Brand = "Toyota", Model = "Camry", Year = 2020, NumberOfDoors = 4 },
+            new Genepool.src.OOP.Polymorphism.Good.Bike { Brand = "Harley-Davidson", Model = "Sportster", Year = 2021 }
+            };
+
+        // Perform a general inspection on each vehicle
+        foreach (var vehicle in vehicles)
+        {
+            Console.WriteLine($"Inspecting {vehicle.Brand} {vehicle.Model} ({vehicle.GetType().Name})");
+            vehicle.Start();
+            vehicle.Stop();
+            Console.WriteLine();
+        }
     }
 }
