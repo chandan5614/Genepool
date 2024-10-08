@@ -1,4 +1,5 @@
 ﻿using Genepool.src.OOP.Abstraction;
+using Genepool.src.OOP.Composition;
 using Genepool.src.OOP.Coupling.Bad;
 using Genepool.src.OOP.Coupling.Good;
 using Genepool.src.OOP.Encapsulation;
@@ -7,8 +8,7 @@ class Program
 {
     static void Main(String[] args)
     {
-        NoCoupling();
-        Coupling();
+        Composition();
     }
 
     private static void NoEncapsulation()
@@ -145,5 +145,11 @@ class Program
         Genepool.src.OOP.Coupling.Good.Order order = new Genepool.src.OOP.Coupling.Good.Order(emailSender);
         //Genepool.src.OOP.Coupling.Good.Order order= new Genepool.src.OOP.Coupling.Good.Order(new Genepool.src.OOP.Coupling.Good.SMSSender());
         order.PlaceOrder();
+    }
+
+    private static void Composition()
+    {
+        Car car = new Car();
+        car.StartCar();
     }
 }
