@@ -1,11 +1,12 @@
-﻿using Genepool.src.OOP.Encapsulation;
+﻿using Genepool.src.OOP.Abstraction;
+using Genepool.src.OOP.Encapsulation;
 
 class Program
 {
     static void Main(String[] args)
     {
-        BadEncapsulation();
-        Encapsulation();
+        BadAbstraction();
+        Abstraction();
     }
 
     private static void BadEncapsulation()
@@ -22,5 +23,20 @@ class Program
         bankAccount.Deposit(100);
         bankAccount.Withdraw(150);
         bankAccount.GetBalance();
+    }
+
+    private static void BadAbstraction()
+    {
+        BadEmailService badEmailService= new BadEmailService();
+        badEmailService.Connect();
+        badEmailService.Authenticate();
+        badEmailService.SendEmail();
+        badEmailService.Disconnect();
+    }
+
+    private static void Abstraction()
+    {
+        EmailService emailService= new EmailService();
+        emailService.SendEmail();
     }
 }
