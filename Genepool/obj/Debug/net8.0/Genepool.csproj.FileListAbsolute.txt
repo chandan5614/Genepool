@@ -1,0 +1,14 @@
+/Users/chandan/Projects/Genepool/Genepool/bin/Debug/net8.0/Genepool
+/Users/chandan/Projects/Genepool/Genepool/bin/Debug/net8.0/Genepool.deps.json
+/Users/chandan/Projects/Genepool/Genepool/bin/Debug/net8.0/Genepool.runtimeconfig.json
+/Users/chandan/Projects/Genepool/Genepool/bin/Debug/net8.0/Genepool.dll
+/Users/chandan/Projects/Genepool/Genepool/bin/Debug/net8.0/Genepool.pdb
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/Genepool.GeneratedMSBuildEditorConfig.editorconfig
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/Genepool.AssemblyInfoInputs.cache
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/Genepool.AssemblyInfo.cs
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/Genepool.csproj.CoreCompileInputs.cache
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/Genepool.dll
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/refint/Genepool.dll
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/Genepool.pdb
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/Genepool.genruntimeconfig.cache
+/Users/chandan/Projects/Genepool/Genepool/obj/Debug/net8.0/ref/Genepool.dll
