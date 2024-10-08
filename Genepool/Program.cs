@@ -1,12 +1,14 @@
 ﻿using Genepool.src.OOP.Abstraction;
+using Genepool.src.OOP.Coupling.Bad;
+using Genepool.src.OOP.Coupling.Good;
 using Genepool.src.OOP.Encapsulation;
 
 class Program
 {
     static void Main(String[] args)
     {
-        NoPolymorphism();
-        Polymorphism();
+        NoCoupling();
+        Coupling();
     }
 
     private static void NoEncapsulation()
@@ -78,39 +80,39 @@ class Program
     }
 
     private static void NoPolymorphism()
-{
-    // Create a list of objects without polymorphism
-    List<Object> vehicles = new List<Object>
+    {
+        // Create a list of objects without polymorphism
+        List<Object> vehicles = new List<Object>
     {
         new Genepool.src.OOP.Polymorphism.Bad.Car { Brand = "Toyota", Model = "Camry", Year = 2020, NumberOfDoors = 4 },
         new Genepool.src.OOP.Polymorphism.Bad.Bike { Brand = "Harley-Davidson", Model = "Sportster", Year = 2021 }
     };
 
-    // Perform a general inspection on each vehicle with type checks
-    foreach (var vehicle in vehicles)
-    {
-        if (vehicle is Genepool.src.OOP.Polymorphism.Bad.Car)
+        // Perform a general inspection on each vehicle with type checks
+        foreach (var vehicle in vehicles)
         {
-            Genepool.src.OOP.Polymorphism.Bad.Car car = (Genepool.src.OOP.Polymorphism.Bad.Car)vehicle; // Cast to Car
-            Console.WriteLine($"Inspecting {car.Brand} {car.Model} ({car.GetType().Name})");
-            car.Start();
-            car.Stop();
-            Console.WriteLine();
-        }
-        else if (vehicle is Genepool.src.OOP.Polymorphism.Bad.Bike)
-        {
-            Genepool.src.OOP.Polymorphism.Bad.Bike bike = (Genepool.src.OOP.Polymorphism.Bad.Bike)vehicle; // Cast to Bike
-            Console.WriteLine($"Inspecting {bike.Brand} {bike.Model} ({bike.GetType().Name})");
-            bike.Start();
-            bike.Stop();
-            Console.WriteLine();
-        }
-        else
-        {
-            throw new Exception("Object is not a valid vehicle");
+            if (vehicle is Genepool.src.OOP.Polymorphism.Bad.Car)
+            {
+                Genepool.src.OOP.Polymorphism.Bad.Car car = (Genepool.src.OOP.Polymorphism.Bad.Car)vehicle; // Cast to Car
+                Console.WriteLine($"Inspecting {car.Brand} {car.Model} ({car.GetType().Name})");
+                car.Start();
+                car.Stop();
+                Console.WriteLine();
+            }
+            else if (vehicle is Genepool.src.OOP.Polymorphism.Bad.Bike)
+            {
+                Genepool.src.OOP.Polymorphism.Bad.Bike bike = (Genepool.src.OOP.Polymorphism.Bad.Bike)vehicle; // Cast to Bike
+                Console.WriteLine($"Inspecting {bike.Brand} {bike.Model} ({bike.GetType().Name})");
+                bike.Start();
+                bike.Stop();
+                Console.WriteLine();
+            }
+            else
+            {
+                throw new Exception("Object is not a valid vehicle");
+            }
         }
     }
-}
 
 
     private static void Polymorphism()
@@ -129,5 +131,19 @@ class Program
             vehicle.Stop();
             Console.WriteLine();
         }
+    }
+
+    private static void NoCoupling()
+    {
+        Genepool.src.OOP.Coupling.Bad.Order order = new Genepool.src.OOP.Coupling.Bad.Order();
+        order.PlaceOrder();
+    }
+
+    private static void Coupling()
+    {
+        Genepool.src.OOP.Coupling.Good.EmailSender emailSender = new Genepool.src.OOP.Coupling.Good.EmailSender();
+        Genepool.src.OOP.Coupling.Good.Order order = new Genepool.src.OOP.Coupling.Good.Order(emailSender);
+        //Genepool.src.OOP.Coupling.Good.Order order= new Genepool.src.OOP.Coupling.Good.Order(new Genepool.src.OOP.Coupling.Good.SMSSender());
+        order.PlaceOrder();
     }
 }
