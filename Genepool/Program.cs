@@ -3,6 +3,8 @@ using Genepool.src.OOP.Composition;
 using Genepool.src.OOP.Coupling.Bad;
 using Genepool.src.OOP.Coupling.Good;
 using Genepool.src.OOP.Encapsulation;
+using Genepool.src.SOLID.I.Bad;
+using Genepool.src.SOLID.I.Good;
 using Genepool.src.SOLID.S.Bad;
 using Genepool.src.SOLID.S.Good;
 
@@ -10,8 +12,8 @@ class Program
 {
     static void Main(String[] args)
     {
-        NoLiskovSubstitutionPrinciple();
-        LiskovSubstitutionPrinciple();
+        NoInterfaceSegregation();
+        InterfaceSegregation();
     }
 
     private static void NoEncapsulation()
@@ -244,6 +246,39 @@ class Program
             SideLength = 5
         };
         Console.WriteLine($"Area of the square: {square.Area}");
+    }
+
+    private static void NoInterfaceSegregation()
+    {
+        IShape circle = new Genepool.src.SOLID.I.Bad.Circle { Radius = 10 };
+
+        Console.WriteLine($"Circle Area: {circle.Area()}");
+
+        try
+        {
+            Console.WriteLine($"Circle Volume: {circle.Volume()}"); // Will throw InvalidOperationException
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+
+        IShape sphere = new Genepool.src.SOLID.I.Bad.Sphere { Radius = 10 };
+
+        Console.WriteLine($"Sphere Area: {sphere.Area()}");
+        Console.WriteLine($"Sphere Volume: {sphere.Volume()}");
+    }
+
+    private static void InterfaceSegregation()
+    {
+        IShape2D circle = new Genepool.src.SOLID.I.Good.Circle { Radius = 10 };
+
+        Console.WriteLine($"Circle Area: {circle.Area()}");
+
+        IShape3D sphere = new Genepool.src.SOLID.I.Good.Sphere { Radius = 10 };
+
+        Console.WriteLine($"Sphere Area: {sphere.Area()}");
+        Console.WriteLine($"Sphere Volume: {sphere.Volume()}");
     }
 
 }
