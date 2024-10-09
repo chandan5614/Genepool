@@ -10,8 +10,8 @@ class Program
 {
     static void Main(String[] args)
     {
-        NoSingleResponsibility();
-        SingleResponsibility();
+        NoOpenClosedPrinciple();
+        OpenClosedPrinciple();
     }
 
     private static void NoEncapsulation()
@@ -177,4 +177,41 @@ class Program
         Genepool.src.SOLID.S.Good.UserService userService = new Genepool.src.SOLID.S.Good.UserService();
         userService.Register(user);
     }
+
+    private static void NoOpenClosedPrinciple()
+    {
+        Genepool.src.SOLID.O.Bad.Shape circle = new Genepool.src.SOLID.O.Bad.Shape
+        {
+            Type = Genepool.src.SOLID.O.Bad.ShapeType.Circle,
+            Radius = 5
+        };
+
+        Genepool.src.SOLID.O.Bad.Shape rectangle = new Genepool.src.SOLID.O.Bad.Shape
+        {
+            Type = Genepool.src.SOLID.O.Bad.ShapeType.Rectangle,
+            Length = 10,
+            Width = 5
+        };
+
+        Console.WriteLine($"Circle Area: {circle.CalculateArea()}");
+        Console.WriteLine($"Rectangle Area: {rectangle.CalculateArea()}");
+    }
+
+    private static void OpenClosedPrinciple()
+    {
+        Genepool.src.SOLID.O.Good.Shape circle = new Genepool.src.SOLID.O.Good.Circle
+        {
+            Radius = 5
+        };
+
+        Genepool.src.SOLID.O.Good.Shape rectangle = new Genepool.src.SOLID.O.Good.Rectangle
+        {
+            Length = 10,
+            Width = 5
+        };
+
+        Console.WriteLine($"Circle Area: {circle.CalculateArea()}");
+        Console.WriteLine($"Rectangle Area: {rectangle.CalculateArea()}");
+    }
+
 }
