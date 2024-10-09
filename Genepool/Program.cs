@@ -10,8 +10,8 @@ class Program
 {
     static void Main(String[] args)
     {
-        NoOpenClosedPrinciple();
-        OpenClosedPrinciple();
+        NoLiskovSubstitutionPrinciple();
+        LiskovSubstitutionPrinciple();
     }
 
     private static void NoEncapsulation()
@@ -212,6 +212,38 @@ class Program
 
         Console.WriteLine($"Circle Area: {circle.CalculateArea()}");
         Console.WriteLine($"Rectangle Area: {rectangle.CalculateArea()}");
+    }
+
+    private static void NoLiskovSubstitutionPrinciple()
+    {
+        var rect = new Genepool.src.SOLID.L.Bad.Rectangle();
+        rect.Height = 10;
+        rect.Width = 5;
+        Console.WriteLine("Expected area = 10 * 5 = 50.");
+        Console.WriteLine("Calculated area = " + rect.Area);
+
+        // Violates LSP when substituting Square for Rectangle
+        var square = new Genepool.src.SOLID.L.Bad.Square();
+        square.Height = 10;
+        square.Width = 5; // Setting width should not affect height, but it does
+        Console.WriteLine("Expected area = 10 * 5 = 50.");
+        Console.WriteLine("Calculated area = " + square.Area);
+    }
+
+    private static void LiskovSubstitutionPrinciple()
+    {
+        Genepool.src.SOLID.L.Good.Shape rectangle = new Genepool.src.SOLID.L.Good.Rectangle
+        {
+            Width = 5,
+            Height = 4
+        };
+        Console.WriteLine($"Area of the rectangle: {rectangle.Area}");
+
+        Genepool.src.SOLID.L.Good.Shape square = new Genepool.src.SOLID.L.Good.Square
+        {
+            SideLength = 5
+        };
+        Console.WriteLine($"Area of the square: {square.Area}");
     }
 
 }
