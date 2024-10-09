@@ -3,6 +3,7 @@ using Genepool.src.OOP.Composition;
 using Genepool.src.OOP.Coupling.Bad;
 using Genepool.src.OOP.Coupling.Good;
 using Genepool.src.OOP.Encapsulation;
+using Genepool.src.SOLID.D.Good;
 using Genepool.src.SOLID.I.Bad;
 using Genepool.src.SOLID.I.Good;
 using Genepool.src.SOLID.S.Bad;
@@ -12,8 +13,8 @@ class Program
 {
     static void Main(String[] args)
     {
-        NoInterfaceSegregation();
-        InterfaceSegregation();
+        NoDependencyInversion();
+        DependencyInversion();
     }
 
     private static void NoEncapsulation()
@@ -154,7 +155,7 @@ class Program
 
     private static void Composition()
     {
-        Car car = new Car();
+        Genepool.src.OOP.Composition.Car car = new Genepool.src.OOP.Composition.Car();
         car.StartCar();
     }
 
@@ -280,5 +281,18 @@ class Program
         Console.WriteLine($"Sphere Area: {sphere.Area()}");
         Console.WriteLine($"Sphere Volume: {sphere.Volume()}");
     }
+
+    private static void NoDependencyInversion()
+        {
+            Genepool.src.SOLID.D.Bad.Car car = new Genepool.src.SOLID.D.Bad.Car();
+            car.StartCar();
+        }
+
+        private static void DependencyInversion()
+        {
+            IEngine engine = new Genepool.src.SOLID.D.Good.Engine(); // Concrete implementation to be injected into the car
+            Genepool.src.SOLID.D.Good.Car car = new Genepool.src.SOLID.D.Good.Car(engine);
+            car.StartCar();
+        }
 
 }
