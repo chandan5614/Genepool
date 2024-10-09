@@ -3,12 +3,15 @@ using Genepool.src.OOP.Composition;
 using Genepool.src.OOP.Coupling.Bad;
 using Genepool.src.OOP.Coupling.Good;
 using Genepool.src.OOP.Encapsulation;
+using Genepool.src.SOLID.S.Bad;
+using Genepool.src.SOLID.S.Good;
 
 class Program
 {
     static void Main(String[] args)
     {
-        Composition();
+        NoSingleResponsibility();
+        SingleResponsibility();
     }
 
     private static void NoEncapsulation()
@@ -151,5 +154,27 @@ class Program
     {
         Car car = new Car();
         car.StartCar();
+    }
+
+    private static void NoSingleResponsibility()
+    {
+        Genepool.src.SOLID.S.Bad.User user = new Genepool.src.SOLID.S.Bad.User
+        {
+            UserName = "JaneDoe",
+            Email = "janedoe@example.com"
+        };
+        user.Register();
+    }
+
+    private static void SingleResponsibility()
+    {
+        Genepool.src.SOLID.S.Good.User user = new Genepool.src.SOLID.S.Good.User
+        {
+            UserName = "JohnDoe",
+            Email = "johndoe@example.com"
+        };
+
+        Genepool.src.SOLID.S.Good.UserService userService = new Genepool.src.SOLID.S.Good.UserService();
+        userService.Register(user);
     }
 }
