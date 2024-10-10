@@ -1,20 +1,23 @@
-﻿using Genepool.src.OOP.Abstraction;
-using Genepool.src.OOP.Composition;
-using Genepool.src.OOP.Coupling.Bad;
-using Genepool.src.OOP.Coupling.Good;
+﻿using Genepool.src.Architectures.OnionArchitecture.Core.Entities;
+using Genepool.src.Architectures.OnionArchitecture.Core.Interfaces;
+using Genepool.src.Architectures.OnionArchitecture.Infrastructure.Persistence;
+using Genepool.src.Architectures.OnionArchitecture.Infrastructure.Persistence.Repositories;
+using Genepool.src.Architectures.OnionArchitecture.Presentation.Middleware;
+using Genepool.src.OOP.Abstraction;
 using Genepool.src.OOP.Encapsulation;
 using Genepool.src.SOLID.D.Good;
 using Genepool.src.SOLID.I.Bad;
 using Genepool.src.SOLID.I.Good;
-using Genepool.src.SOLID.S.Bad;
-using Genepool.src.SOLID.S.Good;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 class Program
 {
     static void Main(String[] args)
     {
-        NoDependencyInversion();
-        DependencyInversion();
+        var app = OnionArchitectureWebApplication(args);
+        app.Run();
     }
 
     private static void NoEncapsulation()
@@ -283,16 +286,80 @@ class Program
     }
 
     private static void NoDependencyInversion()
-        {
-            Genepool.src.SOLID.D.Bad.Car car = new Genepool.src.SOLID.D.Bad.Car();
-            car.StartCar();
-        }
+    {
+        Genepool.src.SOLID.D.Bad.Car car = new Genepool.src.SOLID.D.Bad.Car();
+        car.StartCar();
+    }
 
-        private static void DependencyInversion()
+    private static void DependencyInversion()
+    {
+        IEngine engine = new Genepool.src.SOLID.D.Good.Engine(); // Concrete implementation to be injected into the car
+        Genepool.src.SOLID.D.Good.Car car = new Genepool.src.SOLID.D.Good.Car(engine);
+        car.StartCar();
+    }
+
+    private static WebApplication OnionArchitectureWebApplication(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Add services to the container.
+        ConfigureOnionArchitectureServices(builder.Services);
+
+        var app = builder.Build();
+
+        // Seed data
+        SeedData(app.Services);
+
+        // Use custom middleware for global exception handling
+        app.UseMiddleware<GlobalExceptionHandler>();
+
+        app.UseRouting();
+        app.MapControllers(); // Maps the attribute-routed controllers
+
+        return app;
+    }
+
+    private static void ConfigureOnionArchitectureServices(IServiceCollection services)
+    {
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseInMemoryDatabase("DemoDb")); // Use an in-memory database for demo purposes
+        services.AddScoped<IOwnerRepository, OwnerRepository>();
+        services.AddScoped<IVehicleRepository, VehicleRepository>();
+
+        // Configure JSON options to handle reference cycles
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.MaxDepth = 64;
+            });
+    }
+
+
+    private static void SeedData(IServiceProvider serviceProvider)
+    {
+        using (var scope = serviceProvider.CreateScope())
         {
-            IEngine engine = new Genepool.src.SOLID.D.Good.Engine(); // Concrete implementation to be injected into the car
-            Genepool.src.SOLID.D.Good.Car car = new Genepool.src.SOLID.D.Good.Car(engine);
-            car.StartCar();
+            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            // Seed Owners
+            if (!context.Owners.Any())
+            {
+                var owner1 = new Owner { Name = "John Doe", Email = "john@example.com" };
+                var owner2 = new Owner { Name = "Jane Smith", Email = "jane@example.com" };
+
+                context.Owners.AddRange(owner1, owner2);
+                context.SaveChanges();
+
+                // Seed Vehicles
+                var vehicle1 = new Vehicle { Make = "Toyota", Model = "Camry", Year = 2020, OwnerId = owner1.Id, LicensePlate = "qwe-123" };
+                var vehicle2 = new Vehicle { Make = "Honda", Model = "Civic", Year = 2021, OwnerId = owner1.Id, LicensePlate = "asd-456" };
+                var vehicle3 = new Vehicle { Make = "Ford", Model = "Mustang", Year = 2022, OwnerId = owner2.Id, LicensePlate = "zxc-789" };
+
+                context.Vehicles.AddRange(vehicle1, vehicle2, vehicle3);
+                context.SaveChanges();
+            }
         }
+    }
 
 }
