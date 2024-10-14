@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Genepool.Architectures.OnionArchitecture.Core.Entities
+namespace Genepool.Architectures.CleanArchitecture.Core.Entities
 {
     public class Vehicle
     {

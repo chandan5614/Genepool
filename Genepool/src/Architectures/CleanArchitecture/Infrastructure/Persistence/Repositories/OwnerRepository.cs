@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Genepool.Architectures.OnionArchitecture.Core.Entities;
-using Genepool.Architectures.OnionArchitecture.Core.Interfaces;
-using Genepool.Architectures.OnionArchitecture.Infrastructure.Configurations;
+using Genepool.Architectures.CleanArchitecture.Core.Entities;
+using Genepool.Architectures.CleanArchitecture.Core.Interfaces;
+using Genepool.Architectures.CleanArchitecture.Infrastructure.Configurations;
 
-namespace Genepool.Architectures.OnionArchitecture.Infrastructure.Persistence.Repositories
+namespace Genepool.Architectures.CleanArchitecture.Infrastructure.Persistence.Repositories
 {
     public class OwnerRepository : IOwnerRepository
     {

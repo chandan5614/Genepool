@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Genepool.Architectures.OnionArchitecture.Core.Entities;
+using Genepool.Architectures.CleanArchitecture.Core.Entities;
 
-namespace Genepool.Architectures.OnionArchitecture.Infrastructure.Configurations
+namespace Genepool.Architectures.CleanArchitecture.Infrastructure.Configurations
 {
     public class ApplicationDbContext : DbContext
     {

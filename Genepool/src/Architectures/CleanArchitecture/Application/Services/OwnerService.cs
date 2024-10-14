@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Genepool.Architectures.OnionArchitecture.Core.Entities;
-using Genepool.Architectures.OnionArchitecture.Core.Interfaces;
+using Genepool.Architectures.CleanArchitecture.Core.Entities;
+using Genepool.Architectures.CleanArchitecture.Core.Interfaces;
 
 namespace Genepool.Architectures.OnionArchitecture.Application.Services
 {

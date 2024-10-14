@@ -1,12 +1,16 @@
+using Genepool.Architectures.CleanArchitecture.Application.Dtos;
+using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Genepool.src.Architectures.CleanArchitecture.CQRS.Queries
+namespace Genepool.Architectures.CleanArchitecture.CQRS.Queries
 {
-    public class GetOwnerByIdQuery
+    public class GetOwnerByIdQuery : IRequest<OwnerDto>
     {
-        
+        public Guid OwnerId { get; }
+
+        public GetOwnerByIdQuery(Guid ownerId)
+        {
+            OwnerId = ownerId;
+        }
     }
 }

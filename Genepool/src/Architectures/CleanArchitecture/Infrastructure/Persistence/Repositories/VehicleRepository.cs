@@ -1,6 +1,6 @@
-using Genepool.Architectures.OnionArchitecture.Core.Entities;
-using Genepool.Architectures.OnionArchitecture.Core.Interfaces;
-using Genepool.Architectures.OnionArchitecture.Infrastructure.Configurations;
+using Genepool.Architectures.CleanArchitecture.Core.Entities;
+using Genepool.Architectures.CleanArchitecture.Core.Interfaces;
+using Genepool.Architectures.CleanArchitecture.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

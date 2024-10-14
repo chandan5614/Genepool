@@ -1,12 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MediatR;
+using Genepool.Architectures.CleanArchitecture.Application.Dtos;
 
-namespace Genepool.src.Architectures.CleanArchitecture.CQRS.Commands
+namespace Genepool.Architectures.CleanArchitecture.CQRS.Commands
 {
-    public class CreateOwnerCommand
+    public class CreateOwnerCommand : IRequest<OwnerDto>
     {
-        
+        public OwnerDto Owner { get; set; }
+
+        public CreateOwnerCommand(OwnerDto owner)
+        {
+            Owner = owner;
+        }
     }
 }

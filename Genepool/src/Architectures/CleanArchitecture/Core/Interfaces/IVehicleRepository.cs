@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Genepool.Architectures.OnionArchitecture.Core.Entities;
+using Genepool.Architectures.CleanArchitecture.Core.Entities;
 
-namespace Genepool.Architectures.OnionArchitecture.Core.Interfaces
+namespace Genepool.Architectures.CleanArchitecture.Core.Interfaces
 {
     public interface IVehicleRepository
     {

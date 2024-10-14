@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Genepool.Architectures.OnionArchitecture.Core.Entities
+namespace Genepool.Architectures.CleanArchitecture.Core.Entities
 {
     public class Owner
     {
