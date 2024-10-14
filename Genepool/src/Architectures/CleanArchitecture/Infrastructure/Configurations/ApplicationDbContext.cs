@@ -1,12 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Genepool.Architectures.OnionArchitecture.Core.Entities;
 
-namespace Genepool.src.Architectures.CleanArchitecture.Infrastructure.Configurations
+namespace Genepool.Architectures.OnionArchitecture.Infrastructure.Configurations
 {
-    public class ApplicationDbContext
+    public class ApplicationDbContext : DbContext
     {
-        
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Owner> Owners { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Customize the model and define relationships if necessary
+            modelBuilder.Entity<Owner>()
+                .HasMany(o => o.Vehicles)
+                .WithOne(v => v.Owner)
+                .HasForeignKey(v => v.OwnerId);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

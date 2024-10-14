@@ -1,12 +1,25 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Genepool.Architectures.OnionArchitecture.Core.Entities;
 
-namespace Genepool.src.Architectures.CleanArchitecture.Core.Interfaces
+namespace Genepool.Architectures.OnionArchitecture.Core.Interfaces
 {
-    public class IOwnerRepository
+    public interface IOwnerRepository
     {
-        
+        // Retrieve all owners asynchronously
+        Task<IEnumerable<Owner>> GetAllOwnersAsync();
+
+        // Retrieve a specific owner by ID asynchronously
+        Task<Owner> GetOwnerByIdAsync(Guid ownerId);
+
+        // Add a new owner asynchronously
+        Task<Owner> AddOwnerAsync(Owner owner);
+
+        // Update an existing owner asynchronously
+        Task<Owner> UpdateOwnerAsync(Owner owner);
+
+        // Delete an owner by ID asynchronously
+        Task<bool> DeleteOwnerAsync(Guid ownerId);
     }
 }
