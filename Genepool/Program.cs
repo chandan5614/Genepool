@@ -1,4 +1,5 @@
-﻿using Genepool.src.Architectures.OnionArchitecture.Core.Entities;
+﻿using System.Reflection;
+using Genepool.src.Architectures.OnionArchitecture.Core.Entities;
 using Genepool.src.Architectures.OnionArchitecture.Core.Interfaces;
 using Genepool.src.Architectures.OnionArchitecture.Infrastructure.Persistence;
 using Genepool.src.Architectures.OnionArchitecture.Infrastructure.Persistence.Repositories;
@@ -16,7 +17,7 @@ class Program
 {
     static void Main(String[] args)
     {
-        var app = OnionArchitectureWebApplication(args);
+        var app = CleanArchitectureWebApplication(args);
         app.Run();
     }
 
@@ -360,6 +361,48 @@ class Program
                 context.SaveChanges();
             }
         }
+    }
+
+    private static WebApplication CleanArchitectureWebApplication(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+
+        // Add services to the container.
+        ConfigureCleanArchitectureServices(builder.Services);
+
+        var app = builder.Build();
+
+        // Seed data
+        SeedData(app.Services);
+
+        // Use custom middleware for global exception handling
+        app.UseMiddleware<GlobalExceptionHandler>();
+
+        app.UseRouting();
+        app.MapControllers(); // Maps the attribute-routed controllers
+
+        return app;
+    }
+
+    private static void ConfigureCleanArchitectureServices(IServiceCollection services)
+    {
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseInMemoryDatabase("DemoDb")); // Use an in-memory database for demo purposes
+
+        // Register MediatR with the current assembly
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+
+        // Register repositories
+        services.AddScoped<IOwnerRepository, OwnerRepository>();
+        services.AddScoped<IVehicleRepository, VehicleRepository>();
+
+        // Configure JSON options to handle reference cycles
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                options.JsonSerializerOptions.MaxDepth = 64;
+            });
     }
 
 }

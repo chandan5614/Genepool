@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Genepool.src.Architectures.OnionArchitecture.Presentation.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/clean/[controller]")]
     public class OwnersController : ControllerBase
     {
         private readonly IOwnerRepository _ownerRepository;
