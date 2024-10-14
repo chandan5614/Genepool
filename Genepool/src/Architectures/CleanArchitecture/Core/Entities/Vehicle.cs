@@ -25,6 +25,10 @@ namespace Genepool.Architectures.CleanArchitecture.Core.Entities
         [Range(1886, int.MaxValue, ErrorMessage = "Year must be greater than or equal to 1886.")]
         public int Year { get; set; }
 
+        // Model of the vehicle
+        [Required(ErrorMessage = "Vehicle color is required.")]
+        public string Color { get; set; }
+
         // Foreign key to link the vehicle to its owner
         [ForeignKey("Owner")]
         public Guid OwnerId { get; set; }
