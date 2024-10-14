@@ -1,12 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
-namespace Genepool.src.Architectures.CleanArchitecture.Core.Exceptions
+namespace Genepool.Architectures.CleanArchitecture.Core.Exceptions
 {
-    public class NotFoundException
+    [Serializable]
+    public class NotFoundException : Exception
     {
-        
+        public NotFoundException() : base() { }
+
+        public NotFoundException(string message) : base(message) { }
+
+        public NotFoundException(string message, Exception innerException) : base(message, innerException) { }
+
+        protected NotFoundException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

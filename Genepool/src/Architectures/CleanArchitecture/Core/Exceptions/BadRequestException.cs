@@ -1,12 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
-namespace Genepool.src.Architectures.CleanArchitecture.Core.Exceptions
+namespace Genepool.Architectures.CleanArchitecture.Core.Exceptions
 {
-    public class BadRequestException
+    [Serializable]
+    public class BadRequestException : Exception
     {
-        
+        public BadRequestException() : base() { }
+
+        public BadRequestException(string message) : base(message) { }
+
+        public BadRequestException(string message, Exception innerException) : base(message, innerException) { }
+
+        protected BadRequestException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }
